@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Energy Supply and Demand</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #5f552c, #555);
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            margin-top: 40px;
+            color: #ddd;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            color: #333;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .value {
+            font-weight: bold;
+        }
+
+        .blink {
+            animation: blink-animation 1s steps(2, start) infinite;
+            -webkit-animation: blink-animation 1s steps(2, start) infinite;
+            color: #ff0000;
+        }
+
+        @keyframes blink-animation {
+            to {
+                visibility: hidden;
+            }
+        }
+
+        @-webkit-keyframes blink-animation {
+            to {
+                visibility: hidden;
+            }
+        }
+
+        /* Color variations */
+        .base-bg {
+            background-color: #f0f8ff;
+        }
+
+        .instant-bg {
+            background-color: #f8f0ff;
+        }
+
+        .high-bg {
+            background-color: #f0fff8;
+        }
+
+        .low-bg {
+            background-color: #fff8f0;
+        }
+
+        /* Text color variations */
+        .base-text {
+            color: #333;
+        }
+
+        .instant-text {
+            color: #4e00ff;
+        }
+
+        .high-text {
+            color: #00c78f;
+        }
+
+        .low-text {
+            color: #ff6300;
+        }
+
+        /* Button styles */
+        .update-button {
+            background-color: #888;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .update-button:hover {
+            background-color: #666;
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+                margin-top: 30px;
+            }
+
+            h2 {
+                font-size: 18px;
+                margin-top: 20px;
+            }
+
+            table {
+                margin-top: 20px;
+            }
+
+            th,
+            td {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+    <script>
+        // Function to generate random values within a range
+        function getRandomValue(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        // Function to update the table values based on the time interval
+        function updateValues() {
+            // Base Case
+            document.getElementById("powerDemandBase").innerText = "5 MW";
+            document.getElementById("solarPVBase").innerText = "5 MW";
+            document.getElementById("fuelCellBase").innerText = "5 MW";
+            document.getElementById("gridSupplyBase").innerText = "15 MW";
+
+            // Instant Normal Case (Hourly)
+            var powerDemandHourly = getRandomValue(4.5, 5.5);
+            var solarPVHourly = getRandomValue(2.5, 3.5);
+            var fuelCellHourly = getRandomValue(2, 2.5);
+            var gridSupplyHourly = powerDemandHourly - solarPVHourly - fuelCellHourly;
+
+            document.getElementById("powerDemandHourly").innerText = powerDemandHourly.toFixed(2) + " MW";
+            document.getElementById("solarPVHourly").innerText = solarPVHourly.toFixed(2) + " MW";
+            document.getElementById("fuelCellHourly").innerText = fuelCellHourly.toFixed(2) + " MW";
+            document.getElementById("gridSupplyHourly").innerText = gridSupplyHourly.toFixed(2) + " MW";
+
+            // High Demand Case (Hourly)
+            var powerDemandHighHourly = getRandomValue(6, 8);
+            var solarPVHighHourly = getRandomValue(3.5, 6);
+            var fuelCellHighHourly = getRandomValue(2.5, 3.5);
+            var gridSupplyHighHourly = powerDemandHighHourly - solarPVHighHourly - fuelCellHighHourly;
+
+            document.getElementById("powerDemandHighHourly").innerText = powerDemandHighHourly.toFixed(2) + " MW";
+            document.getElementById("solarPVHighHourly").innerText = solarPVHighHourly.toFixed(2) + " MW";
+            document.getElementById("fuelCellHighHourly").innerText = fuelCellHighHourly.toFixed(2) + " MW";
+            document.getElementById("gridSupplyHighHourly").innerText = gridSupplyHighHourly.toFixed(2) + " MW";
+
+            // Low Demand Case (Hourly)
+            var powerDemandLowHourly = getRandomValue(3, 4);
+            var solarPVLowHourly = getRandomValue(2, 4);
+            var fuelCellLowHourly = getRandomValue(1, 2);
+            var gridSupplyLowHourly = powerDemandLowHourly - solarPVLowHourly - fuelCellLowHourly;
+
+            document.getElementById("powerDemandLowHourly").innerText = powerDemandLowHourly.toFixed(2) + " MW";
+            document.getElementById("solarPVLowHourly").innerText = solarPVLowHourly.toFixed(2) + " MW";
+            document.getElementById("fuelCellLowHourly").innerText = fuelCellLowHourly.toFixed(2) + " MW";
+            document.getElementById("gridSupplyLowHourly").innerText = gridSupplyLowHourly.toFixed(2) + " MW";
+
+            // High Demand Case (Weekly)
+            var powerDemandHighWeekly = getRandomValue(50, 80);
+            var solarPVHighWeekly = getRandomValue(25, 35);
+            var fuelCellHighWeekly = getRandomValue(35, 40);
+            var gridSupplyHighWeekly = powerDemandHighWeekly - solarPVHighWeekly - fuelCellHighWeekly;
+
+            document.getElementById("powerDemandHighWeekly").innerText = powerDemandHighWeekly.toFixed(2) + " MW";
+            document.getElementById("solarPVHighWeekly").innerText = solarPVHighWeekly.toFixed(2) + " MW";
+            document.getElementById("fuelCellHighWeekly").innerText = fuelCellHighWeekly.toFixed(2) + " MW";
+            document.getElementById("gridSupplyHighWeekly").innerText = gridSupplyHighWeekly.toFixed(2) + " MW";
+
+            // Low Demand Case (Weekly)
+            var powerDemandLowWeekly = getRandomValue(40, 60);
+            var solarPVLowWeekly = getRandomValue(25, 30);
+            var fuelCellLowWeekly = getRandomValue(35, 40);
+            var gridSupplyLowWeekly = powerDemandLowWeekly - solarPVLowWeekly - fuelCellLowWeekly;
+
+            document.getElementById("powerDemandLowWeekly").innerText = powerDemandLowWeekly.toFixed(2) + " MW";
+            document.getElementById("solarPVLowWeekly").innerText = solarPVLowWeekly.toFixed(2) + " MW";
+            document.getElementById("fuelCellLowWeekly").innerText = fuelCellLowWeekly.toFixed(2) + " MW";
+            document.getElementById("gridSupplyLowWeekly").innerText = gridSupplyLowWeekly.toFixed(2) + " MW";
+
+            // High Demand Case (Monthly)
+            var powerDemandHighMonthly = getRandomValue(300, 342);
+            var solarPVHighMonthly = getRandomValue(125, 180);
+            var fuelCellHighMonthly = getRandomValue(150, 220);
+            var gridSupplyHighMonthly = powerDemandHighMonthly - solarPVHighMonthly - fuelCellHighMonthly;
+
+            document.getElementById("powerDemandHighMonthly").innerText = powerDemandHighMonthly.toFixed(2) + " MW";
+            document.getElementById("solarPVHighMonthly").innerText = solarPVHighMonthly.toFixed(2) + " MW";
+            document.getElementById("fuelCellHighMonthly").innerText = fuelCellHighMonthly.toFixed(2) + " MW";
+            document.getElementById("gridSupplyHighMonthly").innerText = gridSupplyHighMonthly.toFixed(2) + " MW";
+
+            // Low Demand Case (Monthly)
+            var powerDemandLowMonthly = getRandomValue(210, 285);
+            var solarPVLowMonthly = getRandomValue(75, 100);
+            var fuelCellLowMonthly = getRandomValue(150, 210);
+            var gridSupplyLowMonthly = powerDemandLowMonthly - solarPVLowMonthly - fuelCellLowMonthly;
+
+            document.getElementById("powerDemandLowMonthly").innerText = powerDemandLowMonthly.toFixed(2) + " MW";
+            document.getElementById("solarPVLowMonthly").innerText = solarPVLowMonthly.toFixed(2) + " MW";
+            document.getElementById("fuelCellLowMonthly").innerText = fuelCellLowMonthly.toFixed(2) + " MW";
+            document.getElementById("gridSupplyLowMonthly").innerText = gridSupplyLowMonthly.toFixed(2) + " MW";
+
+            // High Demand Case (Yearly)
+            var powerDemandHighYearly = getRandomValue(1.4, 1.8);
+            var solarPVHighYearly = getRandomValue(750, 1000);
+            var fuelCellHighYearly = getRandomValue(900, 1620);
+            var gridSupplyHighYearly = powerDemandHighYearly - solarPVHighYearly - fuelCellHighYearly;
+
+            document.getElementById("powerDemandHighYearly").innerText = powerDemandHighYearly.toFixed(2) + " GW";
+            document.getElementById("solarPVHighYearly").innerText = solarPVHighYearly.toFixed(2) + " MW";
+            document.getElementById("fuelCellHighYearly").innerText = fuelCellHighYearly.toFixed(2) + " MW";
+            document.getElementById("gridSupplyHighYearly").innerText = gridSupplyHighYearly.toFixed(2) + " MW";
+
+            // Low Demand Case (Yearly)
+            var powerDemandLowYearly = getRandomValue(1.2, 1.5);
+            var solarPVLowYearly = getRandomValue(450, 620);
+            var fuelCellLowYearly = getRandomValue(900, 1260);
+            var gridSupplyLowYearly = powerDemandLowYearly - solarPVLowYearly - fuelCellLowYearly;
+
+            document.getElementById("powerDemandLowYearly").innerText = powerDemandLowYearly.toFixed(2) + " GW";
+            document.getElementById("solarPVLowYearly").innerText = solarPVLowYearly.toFixed(2) + " MW";
+            document.getElementById("fuelCellLowYearly").innerText = fuelCellLowYearly.toFixed(2) + " MW";
+            document.getElementById("gridSupplyLowYearly").innerText = gridSupplyLowYearly.toFixed(2) + " MW";
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Energy Supply and Demand</h1>
+
+    <h2>Base Case</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>Power Demand (MW)</th>
+            <th>Solar PV (MW)</th>
+            <th>Fuel Cell (MW)</th>
+            <th>Grid Supply (MW)</th>
+        </tr>
+        <tr>
+            <th>Base Case</th>
+            <td id="powerDemandBase" class="value">5 MW</td>
+            <td id="solarPVBase" class="value">5 MW</td>
+            <td id="fuelCellBase" class="value">5 MW</td>
+            <td id="gridSupplyBase" class="value">15 MW</td>
+        </tr>
+    </table>
+
+    <h2>Instant Normal Case (Hourly)</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>Power Demand (MW)</th>
+            <th>Solar PV (MW)</th>
+            <th>Fuel Cell (MW)</th>
+            <th>Grid Supply (MW)</th>
+        </tr>
+        <tr>
+            <th>Instant Normal Case</th>
+            <td id="powerDemandHourly" class="value"></td>
+            <td id="solarPVHourly" class="value"></td>
+            <td id="fuelCellHourly" class="value"></td>
+            <td id="gridSupplyHourly" class="value"></td>
+        </tr>
+    </table>
+
+    <h2>High Demand Case (Hourly)</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>Power Demand (MW)</th>
+            <th>Solar PV (MW)</th>
+            <th>Fuel Cell (MW)</th>
+            <th>Grid Supply (MW)</th>
+        </tr>
+        <tr>
+            <th>High Demand Case</th>
+            <td id="powerDemandHighHourly" class="value"></td>
+            <td id="solarPVHighHourly" class="value"></td>
+            <td id="fuelCellHighHourly" class="value"></td>
+            <td id="gridSupplyHighHourly" class="value"></td>
+        </tr>
+    </table>
+
+    <h2>Low Demand Case (Hourly)</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>Power Demand (MW)</th>
+            <th>Solar PV (MW)</th>
+            <th>Fuel Cell (MW)</th>
+            <th>Grid Supply (MW)</th>
+        </tr>
+        <tr>
+            <th>Low Demand Case</th>
+            <td id="powerDemandLowHourly" class="value"></td>
+            <td id="solarPVLowHourly" class="value"></td>
+            <td id="fuelCellLowHourly" class="value"></td>
+            <td id="gridSupplyLowHourly" class="value"></td>
+        </tr>
+    </table>
+
+    <h2>High Demand Case (Weekly)</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>Power Demand (MW)</th>
+            <th>Solar PV (MW)</th>
+            <th>Fuel Cell (MW)</th>
+            <th>Grid Supply (MW)</th>
+        </tr>
+        <tr>
+            <th>High Demand Case</th>
+            <td id="powerDemandHighWeekly" class="value"></td>
+            <td id="solarPVHighWeekly" class="value"></td>
+            <td id="fuelCellHighWeekly" class="value"></td>
+            <td id="gridSupplyHighWeekly" class="value"></td>
+        </tr>
+    </table>
+
+    <h2>Low Demand Case (Weekly)</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>Power Demand (MW)</th>
+            <th>Solar PV (MW)</th>
+            <th>Fuel Cell (MW)</th>
+            <th>Grid Supply (MW)</th>
+        </tr>
+        <tr>
+            <th>Low Demand Case</th>
+            <td id="powerDemandLowWeekly" class="value"></td>
+            <td id="solarPVLowWeekly" class="value"></td>
+            <td id="fuelCellLowWeekly" class="value"></td>
+            <td id="gridSupplyLowWeekly" class="value"></td>
+        </tr>
+    </table>
+
+    <h2>High Demand Case (Monthly)</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>Power Demand (MW)</th>
+            <th>Solar PV (MW)</th>
+            <th>Fuel Cell (MW)</th>
+            <th>Grid Supply (MW)</th>
+        </tr>
+        <tr>
+            <th>High Demand Case</th>
+            <td id="powerDemandHighMonthly" class="value"></td>
+            <td id="solarPVHighMonthly" class="value"></td>
+            <td id="fuelCellHighMonthly" class="value"></td>
+            <td id="gridSupplyHighMonthly" class="value"></td>
+        </tr>
+    </table>
+
+    <h2>Low Demand Case (Monthly)</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>Power Demand (MW)</th>
+            <th>Solar PV (MW)</th>
+            <th>Fuel Cell (MW)</th>
+            <th>Grid Supply (MW)</th>
+        </tr>
+        <tr>
+            <th>Low Demand Case</th>
+            <td id="powerDemandLowMonthly" class="value"></td>
+            <td id="solarPVLowMonthly" class="value"></td>
+            <td id="fuelCellLowMonthly" class="value"></td>
+            <td id="gridSupplyLowMonthly" class="value"></td>
+        </tr>
+    </table>
+
+    <h2>High Demand Case (Yearly)</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>Power Demand (GW)</th>
+            <th>Solar PV (MW)</th>
+            <th>Fuel Cell (MW)</th>
+            <th>Grid Supply (MW)</th>
+        </tr>
+        <tr>
+            <th>High Demand Case</th>
+            <td id="powerDemandHighYearly" class="value"></td>
+            <td id="solarPVHighYearly" class="value"></td>
+            <td id="fuelCellHighYearly" class="value"></td>
+            <td id="gridSupplyHighYearly" class="value"></td>
+        </tr>
+    </table>
+
+    <h2>Low Demand Case (Yearly)</h2>
+    <table>
+        <tr>
+            <th></th>
+            <th>Power Demand (GW)</th>
+            <th>Solar PV (MW)</th>
+            <th>Fuel Cell (MW)</th>
+            <th>Grid Supply (MW)</th>
+        </tr>
+        <tr>
+            <th>Low Demand Case</th>
+            <td id="powerDemandLowYearly" class="value"></td>
+            <td id="solarPVLowYearly" class="value"></td>
+            <td id="fuelCellLowYearly" class="value"></td>
+            <td id="gridSupplyLowYearly" class="value"></td>
+        </tr>
+    </table>
+
+    <script>
+        // Update values every second
+        setInterval(updateValues, 1000);
+    </script>
+</body>
+
+</html>
